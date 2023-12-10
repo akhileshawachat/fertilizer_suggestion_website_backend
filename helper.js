@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 let helper = {
     checkIfuser:function(req,res,next){
@@ -30,4 +30,5 @@ let helper = {
     },
 }
 
-module.exports = helper;
+// module.exports = helper;
+export default helper;

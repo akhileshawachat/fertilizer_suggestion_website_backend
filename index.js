@@ -5,6 +5,7 @@ import cors from "cors";
 dotenv.config();
 import connectToMongo from "./db.js";
 import authRoute from "./routes/authRoute.js";
+import userRoute from "./routes/userRoute.js"
 
 
 const app = express();
@@ -27,5 +28,6 @@ app.get("/connect-to-server",(req,res)=>{
 });
 
 app.use('/auth',authRoute);
+app.use('/user',userRoute);
 
 app.listen(port,()=>console.log(`Server listening at port ${port}`));

@@ -7,7 +7,7 @@ export const createUser = async (req,res) => {
     try{
 
 
-        // check if user exists
+        
         let user = await UserModel.findOne({ email: req.body.email });
 
         if(user){
@@ -16,11 +16,11 @@ export const createUser = async (req,res) => {
             };
         }
 
-        // Generate a salt and hash the password using bcrypt
+        
         let salt = await bcrypt.genSalt(10);
         let secPass = await bcrypt.hash(req.body.password, salt);
 
-        // Create a new user in the database
+        
         user = await UserModel.create({
             email: req.body.email,
             name: req.body.name,
@@ -33,8 +33,10 @@ export const createUser = async (req,res) => {
             email: user.email,
         };
 
+        let jwtOptions = { expiresIn: "720h" };
+
         // Prepare user data for JWT payload
-        let authToken = jwt.sign(data,JET);
+        let authToken = jwt.sign(data,JET,jwtOptions);
 
         // Update the user document with the generated token
         let jwtUserResponse = await UserModel.findByIdAndUpdate(
@@ -76,7 +78,7 @@ export const login = async (req,res) => {
 
         if(!user){
             throw {
-                message: "Email is not registored",
+                message: "Email is not registered",
             };
         }
 
@@ -90,10 +92,13 @@ export const login = async (req,res) => {
                 email: user.email,
             }
         }
-
         
+        let jwtOptions = { expiresIn: "720h" };
+
         // Prepare user data for JWT payload
-        let authToken = jwt.sign(data,JET);
+        let authToken = jwt.sign(data,JET,jwtOptions);
+        
+        
 
         // Update the user document with the generated token
         let jwtUserResponse = await UserModel.findOneAndUpdate(
