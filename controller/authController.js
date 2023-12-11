@@ -21,7 +21,7 @@ export const createUser = async (req,res) => {
         let secPass = await bcrypt.hash(req.body.password, salt);
 
         
-        user = await UserModel.create({
+        user = await UserModel.create({ 
             email: req.body.email,
             name: req.body.name,
             password: secPass,
@@ -33,7 +33,7 @@ export const createUser = async (req,res) => {
             email: user.email,
         };
 
-        let jwtOptions = { expiresIn: "720h" };
+        let jwtOptions = { expiresIn: "72h" };
 
         // Prepare user data for JWT payload
         let authToken = jwt.sign(data,JET,jwtOptions);
@@ -93,7 +93,7 @@ export const login = async (req,res) => {
             }
         }
         
-        let jwtOptions = { expiresIn: "720h" };
+        let jwtOptions = { expiresIn: "72h" };
 
         // Prepare user data for JWT payload
         let authToken = jwt.sign(data,JET,jwtOptions);

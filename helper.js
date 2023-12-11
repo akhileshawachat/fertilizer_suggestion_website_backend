@@ -23,7 +23,7 @@ let helper = {
                 next();
             }
             }catch(error){
-                console.loglog("error",error)
+                console.log("error",error)
                 res.status(401);
                 return res.send("Unauthorized user")
         }
