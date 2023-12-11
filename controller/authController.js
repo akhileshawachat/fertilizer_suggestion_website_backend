@@ -45,7 +45,7 @@ export const createUser = async (req,res) => {
             {new: true}
         );
 
-        delete jwtUserResponse.token;
+        
         delete jwtUserResponse.password;
 
         res.status(201).json({
